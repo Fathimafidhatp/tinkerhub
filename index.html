@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="myH1">Bored? Make Your Time Productive!</h1>
+        <p>Choose how much time you have, and we'll suggest an activity for you.</p>
+        <div class="hero">
+            <select name="activity" id="activity">
+                <option value="" selected disabled>Choose an activity</option>
+                <option value="learning" >📗Learn Something New</option>
+                <option value="skill">🛠️ Develop a Skill</option>
+                <option value="fitness">🏋️ Stay Active & Healthy</option>
+                <option value="creativity">🎨 Work on a Creative Hobby</option>
+                <option value="planning">📝 Plan & Organize</option>
+                <option value="networking">🤝 Connect & Network</option>
+                <option value="side_project">🚀 Build a Side Project</option>
+            </select>
+            <div class="timeSelection">
+                <label for="time">Time is gold! How much do you have?</label>
+                <input type="number" id="time" min="1" placeholder="Enter minutes">
+            </div>
+        </div>
+        <button id="showActivity" class="button" >Show Me What to Do</button>
+    </div>
+    
+</body>
+</html>
