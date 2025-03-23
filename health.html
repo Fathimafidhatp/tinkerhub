@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness & Health Activities</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stay Active & Healthy!</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Here are some fitness activities:`;
+
+        // Fitness & Health activities based on time
+        const activities = [
+            { title: "Stretching", description: "Do full-body stretches to improve flexibility.", minTime: 5 },
+            { title: "Quick Cardio", description: "Do jumping jacks, burpees, or high knees.", minTime: 10 },
+            { title: "Yoga Session", description: "Try a quick yoga routine for relaxation.", minTime: 15 },
+            { title: "Bodyweight Workout", description: "Squats, push-ups, lunges, and planks.", minTime: 20 },
+            { title: "Go for a Walk", description: "A brisk walk to refresh your mind and body.", minTime: 25 },
+            { title: "Home Workout Routine", description: "A full workout session with bodyweight exercises.", minTime: 30 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No fitness activities fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+</body>
+</html>

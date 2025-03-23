@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a Side Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kickstart Your Side Project!</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Start with these project ideas:`; 
+
+        // Side project activities based on time
+        const activities = [
+            { title: "Brainstorm Ideas", description: "List potential project ideas and validate them.", minTime: 10 },
+            { title: "Set Up a GitHub Repo", description: "Initialize a new repository and create a README.", minTime: 15 },
+            { title: "Design UI Mockups", description: "Sketch wireframes for your project using Figma.", minTime: 20 },
+            { title: "Build a Simple Webpage", description: "Create a basic HTML, CSS, and JS page.", minTime: 30 },
+            { title: "Develop a Feature", description: "Code a small feature like authentication or a to-do list.", minTime: 45 },
+            { title: "Optimize Performance", description: "Improve website speed and responsiveness.", minTime: 60 },
+            { title: "Deploy Your Project", description: "Host your project on GitHub Pages, Netlify, or Vercel.", minTime: 90 },
+            { title: "Work on a Major Feature", description: "Develop a complex feature like API integration.", minTime: 120 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No side project tasks fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Activities</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fun Cooking Activities!</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+
+
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Try these cooking activities:`; 
+
+        // Cooking activities based on time
+        const activities = [
+            { title: "Make a Quick Smoothie", description: "Blend fruits, yogurt, and honey for a healthy smoothie.", minTime: 5 },
+            { title: "Prepare a Sandwich", description: "Make a quick sandwich with your favorite ingredients.", minTime: 10 },
+            { title: "Try a Mug Cake", description: "Make a quick and delicious mug cake in the microwave.", minTime: 15 },
+            { title: "Make an Omelette", description: "Cook a tasty omelette with vegetables and cheese.", minTime: 20 },
+            { title: "Bake Cookies", description: "Prepare cookie dough and bake a batch of fresh cookies.", minTime: 30 },
+            { title: "Cook a Simple Pasta Dish", description: "Prepare pasta with a quick sauce for a delicious meal.", minTime: 40 },
+            { title: "Bake a Cake", description: "Try a simple cake recipe and bake something sweet.", minTime: 60 },
+            { title: "Prepare a Full Meal", description: "Cook a main dish, side dish, and dessert.", minTime: 90 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No cooking activities fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+
+</body>
+</html>

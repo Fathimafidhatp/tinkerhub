@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect & Network</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expand Your Network!</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Try these networking activities:`; 
+
+        // Networking activities based on time
+        const activities = [
+            { title: "Engage on LinkedIn", description: "Like and comment on posts to stay visible.", minTime: 5 },
+            { title: "Send a Quick Message", description: "Check in with a mentor, friend, or colleague.", minTime: 10 },
+            { title: "Join a Tech Forum", description: "Participate in discussions on Reddit, Dev.to, or Stack Overflow.", minTime: 15 },
+            { title: "Update Your Profile", description: "Enhance your LinkedIn, GitHub, or portfolio website.", minTime: 20 },
+            { title: "Write a Professional Post", description: "Share an achievement or industry insights on LinkedIn.", minTime: 30 },
+            { title: "Schedule a Virtual Coffee Chat", description: "Book a short call with someone in your field.", minTime: 40 },
+            { title: "Attend a Webinar", description: "Join a live or recorded industry-related session.", minTime: 60 },
+            { title: "Network at an Event", description: "Attend a local meetup, hackathon, or tech seminar.", minTime: 90 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No networking activities fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+</body>
+</html>

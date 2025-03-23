@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Hobby Activities</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Work on a Creative Hobby!</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Here are some creative activities:`; 
+
+        // Creative hobby activities based on time
+        const activities = [
+            { title: "Doodle or Sketch", description: "Create a simple drawing or doodle.", minTime: 10 },
+            { title: "Write a Short Poem", description: "Express your thoughts in a creative poem.", minTime: 15 },
+            { title: "Try Origami", description: "Fold paper into fun shapes and figures.", minTime: 15 },
+            { title: "Play with Digital Art", description: "Create quick digital sketches on a drawing app.", minTime: 20 },
+            { title: "Write a Short Story", description: "Challenge yourself with a mini storytelling session.", minTime: 30 },
+            { title: "Experiment with Calligraphy", description: "Practice beautiful lettering and fonts.", minTime: 30 },
+            { title: "Compose a Short Music Tune", description: "Use an instrument or software to create music.", minTime: 40 },
+            { title: "Paint or Watercolor", description: "Experiment with colors and create a small painting.", minTime: 45 },
+            { title: "Work on a DIY Craft", description: "Make something creative with available materials.", minTime: 60 },
+            { title: "Edit a Short Video", description: "Use video editing tools to create something fun.", minTime: 60 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No creative activities fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+</body>
+</html>

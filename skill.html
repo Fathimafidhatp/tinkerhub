@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Development Activities</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Skill-Building Activities</h1>
+        <p id="timeDisplay"></p>
+        <div class="card-container" id="activityList">
+            <!-- Cards will be inserted dynamically -->
+        </div>
+    </div>
+    <button onclick="goBack()" class="back-button">⬅️ Go Back</button>
+
+    <script>
+        // Get time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const time = urlParams.get("time");
+
+        // Display time on page
+        document.getElementById("timeDisplay").innerText = `You have ${time} minutes. Here are some skill-building activities:`; 
+
+        // Skill-building activities based on time
+        const activities = [
+            { title: "Practice Touch Typing", description: "Improve your typing speed and accuracy.", minTime: 10 },
+            { title: "Listen to a Podcast", description: "Learn something new from a short podcast.", minTime: 15 },
+            { title: "Learn 5 New Words", description: "Expand your vocabulary in a foreign language.", minTime: 10 },
+            { title: "Solve a Logic Puzzle", description: "Boost your problem-solving skills.", minTime: 15 },
+            { title: "Write a Journal Entry", description: "Practice creative or reflective writing.", minTime: 30 },
+            { title: "Complete a Coding Challenge", description: "Improve your coding skills with a short exercise.", minTime: 30 },
+            { title: "Sketch or Doodle", description: "Enhance your creativity with a quick drawing.", minTime: 15 },
+            { title: "Read a Chapter of a Book", description: "Learn something new from a skill-related book.", minTime: 30 },
+            { title: "Join an Online Discussion", description: "Engage in meaningful conversations.", minTime: 60 },
+            { title: "Work on a Side Project", description: "Build a small coding or creative project.", minTime: 60 }
+        ];
+
+        // Filter activities based on available time
+        const filteredActivities = activities.filter(activity => activity.minTime <= time);
+
+        // Display activities
+        const activityList = document.getElementById("activityList");
+        filteredActivities.forEach(activity => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<h3>${activity.title}</h3><p>${activity.description}</p><p><strong>Time Required:</strong> ${activity.minTime} min</p>`;
+            activityList.appendChild(card);
+        });
+
+        // If no activities fit the time, show a message
+        if (filteredActivities.length === 0) {
+            activityList.innerHTML = `<p>No skill activities fit within ${time} minutes. Try a longer session!</p>`;
+        }
+        function goBack() {
+        window.location.href = "index.html"; // Redirect to the main page
+    }
+    </script>
+</body>
+</html>
